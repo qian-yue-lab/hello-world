@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>生日 · 林诗莹</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #0a192f;
+            color: #ccd6f6;
+            text-align: center;
+            padding: 20px;
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .container {
+            max-width: 600px;
+            width: 100%;
+        }
+        
+        h1 {
+            font-size: 2em;
+            color: #64ffda;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            color: #8892b0;
+            margin-bottom: 30px;
+        }
+        
+        .ascii-art {
+            font-family: monospace;
+            font-size: 12px;
+            background: #112240;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            white-space: pre;
+            overflow-x: auto;
+            text-align: left;
+        }
+        
+        .music-player {
+            margin: 30px 0;
+        }
+        
+        audio {
+            width: 100%;
+            max-width: 400px;
+            margin: 10px 0;
+        }
+        
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        button {
+            background: #233554;
+            color: #ccd6f6;
+            border: 1px solid #64ffda;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        
+        button:hover {
+            background: #64ffda;
+            color: #0a192f;
+        }
+        
+        .message {
+            background: #112240;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            line-height: 1.6;
+        }
+        
+        .footer {
+            margin-top: 30px;
+            color: #8892b0;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>生日 · 林诗莹</h1>
+        <div class="subtitle">第十九篇章开始</div>
+        
+        <div class="ascii-art">
+   _______
+  |       |
+  |  19   |
+  |_______|
+    |   |
+    |   |
+   _|___|_
+  |       |
+  |_______|
+        </div>
+        
+        <div class="music-player">
+            <p>SEVENTEEN - 태어나 줘서 고마워</p >
+            <audio id="audioPlayer" controls>
+                <source src="birthday.mp3" type="audio/mpeg">
+                浏览器不支持音频
+            </audio>
+            <div class="controls">
+                <button onclick="playAudio()">播放</button>
+                <button onclick="pauseAudio()">暂停</button>
+                <button onclick="restartAudio()">重播</button>
+            </div>
+        </div>
+        
+        <div class="message">
+            新的一岁<br>
+            新的开始<br>
+            继续前行
+        </div>
+        
+        <div class="footer">
+            Level 19 · 任务更新
+        </div>
+    </div>
+
+    <script>
+        const audio = document.getElementById('audioPlayer');
+        
+        function playAudio() {
+            audio.play();
+        }
+        
+        function pauseAudio() {
+            audio.pause();
+        }
+        
+        function restartAudio() {
+            audio.currentTime = 0;
+            audio.play();
+        }
+        
+        // 空格键控制播放/暂停
+        document.addEventListener('keydown', (e) => {
+            if (e.code === 'Space') {
+                e.preventDefault();
+                if (audio.paused) {
+                    audio.play();
+                } else {
+                    audio.pause();
+                }
+            }
+        });
+    </script>
+</body>
+</html>
