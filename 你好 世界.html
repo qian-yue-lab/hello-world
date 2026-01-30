@@ -35,16 +35,35 @@
             margin-bottom: 30px;
         }
         
-        .ascii-art {
-            font-family: monospace;
-            font-size: 12px;
+        .cat-container {
             background: #112240;
-            padding: 20px;
+            padding: 25px;
             border-radius: 8px;
             margin: 20px 0;
+        }
+        
+        .cat-art {
+            font-family: monospace;
+            font-size: 14px;
+            line-height: 1.2;
             white-space: pre;
-            overflow-x: auto;
             text-align: center;
+            color: #ccd6f6;
+            margin: 0 auto;
+        }
+        
+        .age-number {
+            font-size: 36px;
+            color: #64ffda;
+            font-weight: bold;
+            margin: 15px 0;
+            text-shadow: 0 0 10px rgba(100, 255, 218, 0.5);
+        }
+        
+        .cat-details {
+            color: #8892b0;
+            font-size: 14px;
+            margin-top: 15px;
         }
         
         .music-player {
@@ -92,6 +111,23 @@
             color: #8892b0;
             font-size: 14px;
         }
+        
+        /* 猫咪耳朵动画 */
+        .cat-ear {
+            display: inline-block;
+            animation: ear-twitch 3s infinite;
+        }
+        
+        @keyframes ear-twitch {
+            0%, 85% { transform: rotate(0deg); }
+            90% { transform: rotate(-5deg); }
+            95% { transform: rotate(5deg); }
+            100% { transform: rotate(0deg); }
+        }
+        
+        .cat-ear:nth-child(2) {
+            animation-delay: 1.5s;
+        }
     </style>
 </head>
 <body>
@@ -99,21 +135,20 @@
         <h1>生日 · 林诗莹</h1>
         <div class="subtitle">第十九篇章开始</div>
         
-        <div class="ascii-art">
-       .:''':.
-      :' 19  ':
-     :'.......':
-    ||         ||
-    ||         ||
-    ||_________||
-    |           |
-    |           |
-    |___________|
-       |     |
-       |     |
-      _|_____|_
-     |         |
-     |_________|
+        <div class="cat-container">
+            <div class="cat-art">
+<span class="cat-ear">/\</span>   <span class="cat-ear">/\</span>
+  | 19 |
+ /      \
+|   ◕ ◕   |
+|    ▽    |
+ \ ~~~~~ /
+  \_____/
+   |   |
+   |   |
+    </div>
+            <div class="age-number">19</div>
+            <div class="cat-details">喵~ 生日快乐！愿你的19岁充满温暖与惊喜 🎂</div>
         </div>
         
         <div class="music-player">
@@ -166,6 +201,17 @@
                     audio.pause();
                 }
             }
+        });
+        
+        // 猫咪耳朵交互效果
+        const catEars = document.querySelectorAll('.cat-ear');
+        catEars.forEach(ear => {
+            ear.addEventListener('mouseenter', () => {
+                ear.style.transform = 'rotate(-10deg)';
+            });
+            ear.addEventListener('mouseleave', () => {
+                ear.style.transform = 'rotate(0deg)';
+            });
         });
     </script>
 </body>
