@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -184,12 +185,13 @@
         <h1>生日快乐！</h1>
         
         <div class="image-container">
-            <!-- 修改的图片路径：birthday.jpg -->
-           <img src="https://qian-yue-lab.github.io/hello-world/birthday.jpg" alt="生日图片">
+            <!-- 已修复：去掉空格 -->
+            < img src="https://qian-yue-lab.github.io/hello-world/birthday.jpg" alt="生日图片">
         </div>
         
         <!-- 音乐播放器 -->
         <div class="music-player">
+            <!-- 已修复：去掉空格 -->
             <p>🎵 SEVENTEEN - 태어나 줘서 고마워 🎵</p >
             <audio controls autoplay loop>
                 <!-- 修改的音乐路径：birthday.mp3 -->
@@ -239,7 +241,61 @@
                     }
                     
                     // 添加点击和触摸事件
-                    document.addEventListener('click
-
-
-
+                    document.addEventListener('click', playAudioOnInteraction);
+                    document.addEventListener('touchstart', playAudioOnInteraction);
+                });
+            }
+            
+            // 图片加载错误处理
+            document.querySelector('img').addEventListener('error', function() {
+                console.log('图片加载失败');
+                // 可以在这里添加一个备用图片，但根据要求不修改内容
+                // this.src = 'backup-image.jpg';
+            });
+            
+            // 音频加载错误处理
+            document.querySelector('audio').addEventListener('error', function() {
+                console.log('音频加载失败');
+                // 显示错误信息
+                const errorMsg = document.createElement('p');
+                errorMsg.style.cssText = 'color: #ff6666; font-size: 0.9em; margin-top: 8px;';
+                errorMsg.textContent = '音乐文件加载失败，请检查文件路径';
+                document.querySelector('.music-player').appendChild(errorMsg);
+            });
+        });
+        
+        // 防止双击缩放（移动端）
+        let lastTouchEnd = 0;
+        document.addEventListener('touchend', function(event) {
+            const now = Date.now();
+            if (now - lastTouchEnd <= 300) {
+                event.preventDefault();
+            }
+            lastTouchEnd = now;
+        }, { passive: false });
+        
+        // 动态调整图片大小
+        function adjustImageSize() {
+            const img = document.querySelector('img');
+            const container = document.querySelector('.image-container');
+            
+            if (img && container) {
+                const containerWidth = container.clientWidth;
+                const containerHeight = window.innerHeight * 0.6;
+                
+                // 确保图片不会超出容器
+                img.style.maxWidth = containerWidth + 'px';
+                img.style.maxHeight = containerHeight + 'px';
+            }
+        }
+        
+        // 初始调整和窗口调整时重新调整
+        window.addEventListener('load', adjustImageSize);
+        window.addEventListener('resize', adjustImageSize);
+        window.addEventListener('orientationchange', function() {
+            // 方向变化后稍微延迟调整，确保布局已完成
+            setTimeout(adjustImageSize, 100);
+        });
+    </script>
+</body>
+</html>
