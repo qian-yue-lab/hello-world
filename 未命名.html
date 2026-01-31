@@ -3,74 +3,153 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>你好，世界！</title>
+    <title>Hello，World！</title>
     <style>
         body {
-            margin: 0;
-            padding: 20px;
-            background: #888;
-            color: white;
-            text-align: center;
             font-family: Arial, sans-serif;
+            background: #0a192f;
+            color: #ccd6f6;
+            text-align: center;
+            padding: 20px;
+            margin: 0;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
-            align-items: center;
             justify-content: center;
+            align-items: center;
+        }
+        
+        .container {
+            max-width: 600px;
+            width: 100%;
         }
         
         h1 {
+            font-size: 2em;
+            color: #64ffda;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            color: #8892b0;
             margin-bottom: 30px;
-            font-size: 2.5em;
         }
         
-        .image-container {
-            max-width: 90%;
-            margin: 20px auto;
+        .cat-container {
+            background: #112240;
+            padding: 25px;
+            border-radius: 8px;
+            margin: 20px 0;
         }
         
-        img {
-            max-width: 100%;
-            border-radius: 10px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+        .cat-art {
+            font-family: monospace;
+            font-size: 14px;
+            line-height: 1.2;
+            white-space: pre;
+            text-align: center;
+            color: #ccd6f6;
+            margin: 0 auto;
+        }
+        
+        .age-number {
+            font-size: 36px;
+            color: #64ffda;
+            font-weight: bold;
+            margin: 15px 0;
+            text-shadow: 0 0 10px rgba(100, 255, 218, 0.5);
+        }
+        
+        .cat-details {
+            color: #8892b0;
+            font-size: 14px;
+            margin-top: 15px;
+        }
+        
+        .music-player {
+            margin: 30px 0;
         }
         
         audio {
-            margin-top: 20px;
-            width: 90%;
+            width: 100%;
             max-width: 400px;
+            margin: 10px 0;
         }
         
-        h2 {
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        button {
+            background: #233554;
+            color: #ccd6f6;
+            border: 1px solid #64ffda;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        
+        button:hover {
+            background: #64ffda;
+            color: #0a192f;
+        }
+        
+        .message {
+            background: #112240;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            line-height: 1.6;
+        }
+        
+        .footer {
             margin-top: 30px;
-            font-size: 1.5em;
+            color: #8892b0;
+            font-size: 14px;
+        }
+        
+        /* 猫咪耳朵动画 */
+        .cat-ear {
+            display: inline-block;
+            animation: ear-twitch 3s infinite;
+        }
+        
+        @keyframes ear-twitch {
+            0%, 85% { transform: rotate(0deg); }
+            90% { transform: rotate(-5deg); }
+            95% { transform: rotate(5deg); }
+            100% { transform: rotate(0deg); }
+        }
+        
+        .cat-ear:nth-child(2) {
+            animation-delay: 1.5s;
         }
     </style>
 </head>
 <body>
-    <h1>生日快乐，林诗莹！</h1>
-    
-    <div class="image-container">
-        <img src="https://qian-yue-lab.github.io/hello-world/birthday.jpg?v=999" alt="生日图片">
+    <div class="container">
+        <h1>生日快乐！ 林诗莹</h1>
+        <div class="subtitle">第十九篇章开始</div>
+        
+        <div class="cat-container">
+            <div class="cat-art">
+<span class="cat-ear">/\</span>   <span class="cat-ear">/\</span>
+  | 19 |
+ /      \
+|   ◕ ◕   |
+|    ▽    |
+ \ ~~~~~ /
+  \_____/
+   |   |
+   |   |
     </div>
-    
-    <div>
-        <p>🎵 SEVENTEEN - 태어나 줘서 고마워 🎵</p >
-        <audio controls autoplay loop>
-            <source src="birthday.mp3" type="audio/mpeg">
-            您的浏览器不支持音频播放。
-        </audio>
-    </div>
-    
-    <h2>祈君旦逢天官至，山河无忌共此安</h2>
-    
-    <script>
-        // 简单的图片加载失败处理
-        document.querySelector('img').onerror = function() {
-            console.log('图片加载失败，尝试重新加载');
-            // 尝试重新加载
-            this.src = 'https://qian-yue-lab.github.io/hello-world/birthday.jpg?v=' + Date.now();
-        };
+            <div class="age-number">19</div>
+            <div class="cat-details">地球online公告：恭喜玩家升级！即将开启全新地图 </div>
+        </div>
         
         <div class="music-player">
             <p>SEVENTEEN - 태어나 줘서 고마워</p >
@@ -84,6 +163,56 @@
                 <button onclick="restartAudio()">重播</button>
             </div>
         </div>
+        
+        <div class="message">
+            新的一岁<br>
+            新的开始<br>
+            继续前行
+        </div>
+        
+        <div class="footer">
+            Level 19 · 任务更新
+        </div>
+    </div>
+
+    <script>
+        const audio = document.getElementById('audioPlayer');
+        
+        function playAudio() {
+            audio.play();
+        }
+        
+        function pauseAudio() {
+            audio.pause();
+        }
+        
+        function restartAudio() {
+            audio.currentTime = 0;
+            audio.play();
+        }
+        
+        // 空格键控制播放/暂停
+        document.addEventListener('keydown', (e) => {
+            if (e.code === 'Space') {
+                e.preventDefault();
+                if (audio.paused) {
+                    audio.play();
+                } else {
+                    audio.pause();
+                }
+            }
+        });
+        
+        // 猫咪耳朵交互效果
+        const catEars = document.querySelectorAll('.cat-ear');
+        catEars.forEach(ear => {
+            ear.addEventListener('mouseenter', () => {
+                ear.style.transform = 'rotate(-10deg)';
+            });
+            ear.addEventListener('mouseleave', () => {
+                ear.style.transform = 'rotate(0deg)';
+            });
+        });
     </script>
 </body>
 </html>
