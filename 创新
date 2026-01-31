@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>你好，世界！</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            background: #888;
+            color: white;
+            text-align: center;
+            font-family: Arial, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        h1 {
+            margin-bottom: 30px;
+            font-size: 2.5em;
+        }
+        
+        .image-container {
+            max-width: 90%;
+            margin: 20px auto;
+        }
+        
+        img {
+            max-width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+        }
+        
+        .music-player {
+            margin-top: 20px;
+            width: 90%;
+            max-width: 400px;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background-color: rgba(255, 255, 255, 0.3);
+            border-radius: 3px;
+            margin: 15px 0;
+            cursor: pointer;
+        }
+        
+        .progress {
+            width: 0%;
+            height: 100%;
+            background-color: #4CAF50;
+            border-radius: 3px;
+        }
+        
+        .time {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9em;
+            color: rgba(255, 255, 255, 0.8);
+            margin-top: 5px;
+        }
+        
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 15px;
+        }
+        
+        button {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1em;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        audio {
+            display: none;
+        }
+        
+        h2 {
+            margin-top: 30px;
+            font-size: 1.5em;
+        }
+    </style>
+</head>
+<body>
+    <h1>生日快乐，林诗莹！</h1>
+    
+    <div class="image-container">
+        < img src="https://qian-yue-lab.github.io/hello-world/birthday.jpg?v=999" alt="生日图片">
+    </div>
+    
+    <div class="music-player">
+        <p>🎵 SEVENTEEN - 태어나 줘서 고마워 🎵</p >
+        
+        <div class="progress-bar" id="progressBar">
+            <div class="progress" id="progress"></div>
+        </div>
+        
+        <div class="time">
+            <span id="currentTime">0:00</span>
+            <span id="duration">1:50</span>
+        </div>
+        
+        <div class="buttons">
+            <button id="playBtn">播放</button>
+            <button id="pauseBtn">暂停</button>
+            <button id="replayBtn">重播</button>
+        </div>
+        
+        <audio id="audio" loop>
+            <source src="birthday.mp3" type="audio/mpeg">
+        </audio>
+    </div>
+    
+    <h2>祈君旦逢天官至，山河无忌共此安</h2>
+    
+    <script>
+        // 图片加载失败处理
+        document.querySelector('img').onerror = function() {
+            this.src = 'https://qian-yue-lab.github.io/hello-world/birthday.jpg?v=' + Date.now();
+        };
+        
+        // 音乐播放器功能
+        const audio = document.getElementById('audio');
+        const playBtn = document.getElementById('playBtn');
+        const pauseBtn = document.getElementById('pauseBtn');
+        const replayBtn = document.getElementById('replayBtn');
+        const progress = document.getElementById('progress');
+        const progressBar = document.getElementById('progressBar');
+        const currentTimeEl = document.getElementById('currentTime');
+        const durationEl = document.getElementById('duration');
+        
+        // 格式化时间
+        function formatTime(seconds) {
+            const mins = Math.floor(seconds / 60);
+            const secs = Math.floor(seconds % 60);
+            return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+        }
+        
+        // 更新进度条
+        audio.addEventListener('timeupdate', function() {
+            const percent = (audio.currentTime / audio.duration) * 100 || 0;
+            progress.style.width = percent + '%';
+            currentTimeEl.textContent = formatTime(audio.currentTime);
+            
+            if (audio.duration) {
+                durationEl.textContent = formatTime(audio.duration);
+            }
+        });
+        
+        // 点击进度条跳转
+        progressBar.addEventListener('click', function(e) {
+            const percent = e.offsetX / this.offsetWidth;
+            audio.currentTime = percent * audio.duration;
+        });
+        
+        // 播放
+        playBtn.addEventListener('click', function() {
+            audio.play();
+        });
+        
+        // 暂停
+        pauseBtn.addEventListener('click', function() {
+            audio.pause();
+        });
+        
+        // 重播
+        replayBtn.addEventListener('click', function() {
+            audio.currentTime = 0;
+            audio.play();
+        });
+    </script>
+</body>
+</html>
