@@ -8,10 +8,10 @@
         body {
             margin: 0;
             padding: 20px;
-            background: linear-gradient(to bottom, #ffb6c1, #ffccd5);
-            color: #333;
+            background: #888;
+            color: white;
             text-align: center;
-            font-family: 'Arial', 'Microsoft YaHei', sans-serif;
+            font-family: Arial, sans-serif;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
@@ -19,204 +19,79 @@
             justify-content: center;
         }
         
-        .birthday-text {
-            font-size: 2.8em;
-            font-weight: bold;
-            margin-bottom: 5px;
-            color: #d63384;
-        }
-        
-        .name-text {
-            font-size: 1.8em;
-            font-weight: bold;
+        h1 {
             margin-bottom: 30px;
-            color: #e63946;
+            font-size: 2.5em;
         }
         
         .image-container {
-            max-width: 80%;
+            max-width: 90%;
             margin: 20px auto;
         }
         
         img {
             max-width: 100%;
-            border-radius: 15px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
         }
         
-        .song-info {
+        .play-button {
+            margin-top: 20px;
+            padding: 12px 30px;
             font-size: 1.2em;
-            font-weight: bold;
-            margin: 25px 0 15px;
-            color: #555;
-        }
-        
-        .play-container {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 20px;
-            margin: 10px 0 25px;
-        }
-        
-        .play-btn {
-            background: #ff6b8b;
+            background-color: #4CAF50;
             color: white;
             border: none;
-            width: 70px;
-            height: 70px;
-            border-radius: 50%;
+            border-radius: 50px;
             cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 28px;
-            box-shadow: 0 5px 15px rgba(255, 107, 139, 0.4);
-            transition: all 0.3s ease;
+            transition: background-color 0.3s;
         }
         
-        .play-btn:hover {
-            background: #ff4d6d;
-            transform: scale(1.05);
+        .play-button:hover {
+            background-color: #45a049;
         }
         
-        .play-btn.playing {
-            background: #4CAF50;
+        audio {
+            display: none;
         }
         
-        .play-btn.playing:hover {
-            background: #45a049;
-        }
-        
-        .time-display {
-            font-size: 1.1em;
-            color: #666;
-            font-weight: bold;
-            letter-spacing: 1px;
-        }
-        
-        .progress-container {
-            width: 80%;
-            max-width: 400px;
-            margin: 0 auto 20px;
-        }
-        
-        .progress-bar {
-            width: 100%;
-            height: 6px;
-            background: #ddd;
-            border-radius: 3px;
-            overflow: hidden;
-        }
-        
-        .progress {
-            width: 0%;
-            height: 100%;
-            background: #ff6b8b;
-            transition: width 0.1s;
-        }
-        
-        .level-text {
+        h2 {
+            margin-top: 30px;
             font-size: 1.5em;
-            font-weight: bold;
-            margin-top: 25px;
-            color: #2a9d8f;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
-        }
-        
-        .cake-emoji {
-            font-size: 1.8em;
-            margin-left: 5px;
         }
     </style>
 </head>
 <body>
-    <div class="birthday-text">生日快乐</div>
-    <div class="name-text">/ 林诗萱</div>
+    <h1>生日快乐！</h1>
     
     <div class="image-container">
         < img src="https://qian-yue-lab.github.io/hello-world/birthday.jpg?v=999" alt="生日图片">
     </div>
     
-    <div class="song-info">SEVENTEEN - 태어나 줘서 고마워 <span class="cake-emoji">🎂</span></div>
-    
-    <div class="progress-container">
-        <div class="progress-bar">
-            <div class="progress" id="progress"></div>
-        </div>
+    <div>
+        <p>🎵 SEVENTEEN - 태어나 줘서 고마워 🎵</p >
+        <button class="play-button">播放音乐</button>
+        <audio controls loop>
+            <source src="birthday.mp3" type="audio/mpeg">
+            您的浏览器不支持音频播放。
+        </audio>
     </div>
     
-    <div class="play-container">
-        <div class="time-display" id="currentTime">0:00</div>
-        <button class="play-btn" id="playButton">▶</button>
-        <div class="time-display" id="duration">1:50</div>
-    </div>
-    
-    <audio id="birthdayAudio" loop>
-        <source src="birthday.mp3" type="audio/mpeg">
-        您的浏览器不支持音频播放。
-    </audio>
-    
-    <div class="level-text">地球online: Lv.19 主线任务已开启</div>
+    <h2>地球online:Lv.19主线任务已开启</h2>
     
     <script>
-        const playButton = document.getElementById('playButton');
-        const audio = document.getElementById('birthdayAudio');
-        const progress = document.getElementById('progress');
-        const currentTimeDisplay = document.getElementById('currentTime');
-        const durationDisplay = document.getElementById('duration');
-        
-        // 格式化时间为 MM:SS
-        function formatTime(seconds) {
-            const mins = Math.floor(seconds / 60);
-            const secs = Math.floor(seconds % 60);
-            return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
-        }
-        
-        // 更新进度条
-        function updateProgress() {
-            if (audio.duration) {
-                const percent = (audio.currentTime / audio.duration) * 100;
-                progress.style.width = percent + '%';
-                currentTimeDisplay.textContent = formatTime(audio.currentTime);
-            }
-        }
-        
-        // 当音频元数据加载完成后，显示总时长
-        audio.addEventListener('loadedmetadata', function() {
-            durationDisplay.textContent = formatTime(audio.duration);
-        });
-        
-        // 更新当前时间
-        audio.addEventListener('timeupdate', updateProgress);
-        
-        playButton.addEventListener('click', function() {
-            if (audio.paused) {
-                audio.play();
-                playButton.textContent = '⏸';
-                playButton.classList.add('playing');
-            } else {
-                audio.pause();
-                playButton.textContent = '▶';
-                playButton.classList.remove('playing');
-            }
-        });
-        
-        // 点击进度条跳转
-        document.querySelector('.progress-bar').addEventListener('click', function(e) {
-            const barWidth = this.clientWidth;
-            const clickPosition = e.offsetX;
-            const percent = clickPosition / barWidth;
-            
-            if (audio.duration) {
-                audio.currentTime = percent * audio.duration;
-            }
-        });
-        
         // 图片加载失败处理
         document.querySelector('img').onerror = function() {
+            console.log('图片加载失败，尝试重新加载');
             this.src = 'https://qian-yue-lab.github.io/hello-world/birthday.jpg?v=' + Date.now();
         };
+        
+        // 按钮点击播放音乐
+        document.querySelector('.play-button').addEventListener('click', function() {
+            const audio = document.querySelector('audio');
+            audio.play().catch(e => console.log('播放失败:', e));
+            this.textContent = audio.paused ? '播放音乐' : '音乐播放中';
+        });
     </script>
 </body>
 </html>
