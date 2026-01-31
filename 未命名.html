@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>生日快乐！</title>
+    <title>你好，世界！</title>
     <style>
         body {
             margin: 0;
@@ -35,24 +35,10 @@
             box-shadow: 0 5px 20px rgba(0,0,0,0.3);
         }
         
-        .play-button {
-            margin-top: 20px;
-            padding: 12px 30px;
-            font-size: 1.2em;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-        
-        .play-button:hover {
-            background-color: #45a049;
-        }
-        
         audio {
-            display: none;
+            margin-top: 20px;
+            width: 90%;
+            max-width: 400px;
         }
         
         h2 {
@@ -62,16 +48,15 @@
     </style>
 </head>
 <body>
-    <h1>生日快乐！</h1>
+    <h1>跃迁！</h1>
     
     <div class="image-container">
-        < img src="https://qian-yue-lab.github.io/hello-world/birthday.jpg?v=999" alt="生日图片">
+        <img src="https://qian-yue-lab.github.io/hello-world/birthday.jpg?v=999" alt="生日图片">
     </div>
     
     <div>
         <p>🎵 SEVENTEEN - 태어나 줘서 고마워 🎵</p >
-        <button class="play-button">播放音乐</button>
-        <audio controls loop>
+        <audio controls autoplay loop>
             <source src="birthday.mp3" type="audio/mpeg">
             您的浏览器不支持音频播放。
         </audio>
@@ -80,19 +65,20 @@
     <h2>地球online:Lv.19主线任务已开启</h2>
     
     <script>
-        // 图片加载失败处理
+        // 简单的图片加载失败处理
         document.querySelector('img').onerror = function() {
             console.log('图片加载失败，尝试重新加载');
+            // 尝试重新加载
             this.src = 'https://qian-yue-lab.github.io/hello-world/birthday.jpg?v=' + Date.now();
         };
         
-        // 按钮点击播放音乐
-        document.querySelector('.play-button').addEventListener('click', function() {
+        // 移动端音频自动播放处理
+        document.addEventListener('click', function() {
             const audio = document.querySelector('audio');
-            audio.play().catch(e => console.log('播放失败:', e));
-            this.textContent = audio.paused ? '播放音乐' : '音乐播放中';
+            if (audio.paused) {
+                audio.play().catch(e => console.log('播放失败:', e));
+            }
         });
     </script>
 </body>
 </html>
-
