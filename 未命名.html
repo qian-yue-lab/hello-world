@@ -11,7 +11,7 @@
             background: #888;
             color: white;
             text-align: center;
-            font-family: Arial, sans-serif;
+            font-family: 'Arial', 'Microsoft YaHei', sans-serif;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
@@ -22,6 +22,7 @@
         h1 {
             margin-bottom: 30px;
             font-size: 2.5em;
+            font-weight: bold;
         }
         
         .image-container {
@@ -35,15 +36,35 @@
             box-shadow: 0 5px 20px rgba(0,0,0,0.3);
         }
         
-        audio {
-            margin-top: 20px;
-            width: 90%;
-            max-width: 400px;
+        .music-controls {
+            margin: 20px 0;
+        }
+        
+        .play-btn {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 16px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-family: 'Arial', sans-serif;
+            font-weight: bold;
+        }
+        
+        .play-btn:hover {
+            background: #45a049;
         }
         
         h2 {
             margin-top: 30px;
             font-size: 1.5em;
+            font-weight: bold;
+        }
+        
+        p {
+            font-size: 16px;
+            line-height: 1.5;
         }
     </style>
 </head>
@@ -54,9 +75,11 @@
         < img src="https://qian-yue-lab.github.io/hello-world/birthday.jpg?v=999" alt="生日图片">
     </div>
     
-    <div>
+    <div class="music-controls">
         <p>🎵 SEVENTEEN - 태어나 줘서 고마워 🎵</p >
-        <audio controls autoplay loop>
+        <button class="play-btn">播放音乐</button>
+        
+        <audio id="birthdayAudio" loop>
             <source src="birthday.mp3" type="audio/mpeg">
             您的浏览器不支持音频播放。
         </audio>
@@ -65,20 +88,23 @@
     <h2>地球online:Lv.19主线任务已开启</h2>
     
     <script>
-        // 简单的图片加载失败处理
-        document.querySelector('img').onerror = function() {
-            console.log('图片加载失败，尝试重新加载');
-            // 尝试重新加载
-            this.src = 'https://qian-yue-lab.github.io/hello-world/birthday.jpg?v=' + Date.now();
-        };
+        const playButton = document.querySelector('.play-btn');
+        const audio = document.getElementById('birthdayAudio');
         
-        // 移动端音频自动播放处理
-        document.addEventListener('click', function() {
-            const audio = document.querySelector('audio');
+        playButton.addEventListener('click', function() {
             if (audio.paused) {
-                audio.play().catch(e => console.log('播放失败:', e));
+                audio.play();
+                playButton.textContent = '暂停音乐';
+            } else {
+                audio.pause();
+                playButton.textContent = '播放音乐';
             }
         });
+        
+        // 图片加载失败处理
+        document.querySelector('img').onerror = function() {
+            this.src = 'https://qian-yue-lab.github.io/hello-world/birthday.jpg?v=' + Date.now();
+        };
     </script>
 </body>
 </html>
